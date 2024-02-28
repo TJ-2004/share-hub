@@ -1,11 +1,14 @@
-import React from 'react'
-
+import React from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import Login from './components/Login.jsx';
+import Home from './container/Home.jsx';
 const App = () => {
   return (
-    <h1 className='text-3xl font-bold underline'>
-      Hello World.
-    </h1>
-  )
-}
+    <Routes>
+      <Route path="login" element={<Login />} />
+      <Route path="/*" element={<Home />} />
+    </Routes>
+  );
+};
 
-export default App
+export default App;
