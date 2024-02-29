@@ -1,23 +1,42 @@
 import React from "react";
-import GoogleLogin from "react-google-login";
-// import { useNavigate } from 'react-router-dom';
-import { FcGoogle } from "react-icons/fc";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
+// import { FcGoogle } from "react-icons/fc";
+// import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import shareVideo from "../assets/share copy.mp4";
 // import logo from "../assets/logo.png"
 import logo from "../assets/logowhite.png";
+import { client } from "../client.js";
 
 const Login = () => {
+  const navigate = useNavigate();
   const responseGoogle = (response) => {
     console.log(response);
-    localStorage.setItem("user", JSON.stringify(response.profileObj));
-    const { name, googleId, imageUrl } = response.profileObj;
-    const doc = {
-      _id: googleId,
-      _type: "user",
-      userName: name,
-      image: imageUrl,
-    };
+
+    // const userResponse = jwtDecode(response.profileObj);
+    // console.log(userResponse);
+    if (response && response.credential) {
+      const userResponse = jwtDecode(response.credential);
+      console.log(userResponse);
+      localStorage.setItem("user", JSON.stringify(userResponse));
+      const { name, sub, picture } = userResponse;
+
+      const doc = {
+          _id: sub,
+          _type: 'user',
+          userName: name,
+          image: picture
+      }
+      client.createIfNotExists(doc).then(() => {
+        navigate("/", { replace: true });
+      });
+    } else {
+      console.error("Profile data is missing or incomplete");
+    }
   };
+
   return (
     <div className="flex flex-col justify-start items-center h-screen">
       <div className="relative h-full w-full">
@@ -35,23 +54,15 @@ const Login = () => {
             <img src={logo} width="130px" alt="logo" />
           </div>
           <div className="shadow-2xl">
-            <GoogleLogin
-              clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
-              render={(renderProps) => (
-                <button
-                  type="button"
-                  className="bg-mainColor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none"
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                >
-                  <FcGoogle className="mr-4" />
-                  Sign in with google
-                </button>
-              )}
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy="single_host_origin"
-            />
+            <GoogleOAuthProvider
+              clientId={`${process.env.REACT_APP_GOOGLE_API_TOKEN}`}
+            >
+              <GoogleLogin
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy="single_host_origin"
+              />
+            </GoogleOAuthProvider>
           </div>
         </div>
       </div>

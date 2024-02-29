@@ -1,7 +1,8 @@
-import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import Login from './components/Login.jsx';
-import Home from './container/Home.jsx';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Login from "./components/Login.jsx";
+
+import Home from "./container/Home.jsx";
 const App = () => {
   return (
     <Routes>
