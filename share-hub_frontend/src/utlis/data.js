@@ -42,7 +42,7 @@ export const feedQuery = `*[_type == "pin"] | order(__createAt desc) {
   },
   save[]{
     _key,
-    postedBy->{
+    postedBy ->{
       _id,
       userName,
       image

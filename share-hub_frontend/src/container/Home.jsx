@@ -9,20 +9,19 @@ import { client } from "../client";
 import { userQuery } from "../utlis/data.js";
 import logo from "../assets/logo.png";
 import Pins from "./Pins";
+import { fetchUser } from "../utlis/fetchUser.js";
 
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState(null);
   const scrollRef = useRef(null);
-  const userInfo =
-    localStorage.getItem("user") !== undefined
-      ? JSON.parse(localStorage.getItem("user"))
-      : localStorage.clear();
+  const userInfo = fetchUser();
 
   useEffect(() => {
     const query = userQuery(userInfo?.sub);
     client.fetch(query).then((data) => {
       setUser(data[0]);
+      // console.log(user);
     });
   }, []);
   useEffect(() => {
