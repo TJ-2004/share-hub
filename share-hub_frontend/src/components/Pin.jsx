@@ -105,9 +105,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                   className="bg-white flex items-center gap-2 font-bold text-black p-2 pl-4 pr-4 rounded-full opacity-7 hover:opacity-100 hover:shadow-md"
                 >
                   <BsFillArrowUpRightCircleFill />
-                  {destination.length > 20
-                    ? destination.slice(8, 20)
-                    : destination.slice(8)}
+                  {destination.length > 15 ? `${destination.slice(0,15)}...` : destination}
                 </a>
               )}
               {postedBy?._id === user.sub && (
