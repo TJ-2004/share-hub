@@ -122,6 +122,7 @@ const UserProfile = () => {
                 activeBtn === "created" ? activeBtnStyles : notActiveBtnStyles
               }`}
             >
+            Created
             </button>
             <button
               type="button"
