@@ -41,7 +41,7 @@ const CreatePin = ({ user }) => {
           filename: name,
         })
         .then((document) => {
-          console.log(document);
+          // console.log(document);
           setImageAsset(document);
           setLoading(false);
         })
@@ -147,7 +147,7 @@ const CreatePin = ({ user }) => {
             <div className="flex gap-2 my-2 items-center bg-white rounded-lg">
               <img
                 src={user?.image}
-                alt="user-image"
+                alt="user-pic"
                 className="w-10 h-10 rounded-full"
               />
               <p className="font-bold"> {user?.userName}</p>

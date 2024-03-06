@@ -13,13 +13,13 @@ import { client } from "../client.js";
 const Login = () => {
   const navigate = useNavigate();
   const responseGoogle = (response) => {
-    console.log(response);
+    // console.log(response);
 
     // const userResponse = jwtDecode(response.profileObj);
     // console.log(userResponse);
     if (response && response.credential) {
       const userResponse = jwtDecode(response.credential);
-      console.log(userResponse);
+      // console.log(userResponse);
       localStorage.setItem("user", JSON.stringify(userResponse));
       const { name, sub, picture } = userResponse;
 

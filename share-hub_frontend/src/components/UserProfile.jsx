@@ -41,7 +41,7 @@ const UserProfile = () => {
 
     client.fetch(query).then((data) => {
       setUser(data[0]);
-      console.log(data[0]);
+      // console.log(data[0]);
     });
   }, [userId]);
   useEffect(() => {
@@ -122,7 +122,6 @@ const UserProfile = () => {
                 activeBtn === "created" ? activeBtnStyles : notActiveBtnStyles
               }`}
             >
-              Created
             </button>
             <button
               type="button"
