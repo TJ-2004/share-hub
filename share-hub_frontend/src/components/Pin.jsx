@@ -12,13 +12,13 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
   const [savingPost, setSavingPost] = useState(false);
   const navigate = useNavigate();
   const user = fetchUser();
-//   console.log(user.sub);
-//   console.log(postedBy);
+  //   console.log(user.sub);
+  //   console.log(postedBy);
 
   const alreadySaved = !!save?.filter(
     (item) => item.postedBy?._id === user?.sub
   )?.length;
-//   console.log(alreadySaved);
+  //   console.log(alreadySaved);
   const savePin = (_id) => {
     if (!alreadySaved) {
       setSavingPost(true);
@@ -92,7 +92,7 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                   }}
                   className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                 >
-                  {save?.length}   {savingPost ? 'Saving' : 'Save'}
+                  {save?.length} {savingPost ? "Saving" : "Save"}
                 </button>
               )}
             </div>
@@ -105,7 +105,9 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                   className="bg-white flex items-center gap-2 font-bold text-black p-2 pl-4 pr-4 rounded-full opacity-7 hover:opacity-100 hover:shadow-md"
                 >
                   <BsFillArrowUpRightCircleFill />
-                  {destination.length > 15 ? `${destination.slice(0,15)}...` : destination}
+                  {destination.length > 15
+                    ? `${destination.slice(0, 15)}...`
+                    : destination}
                 </a>
               )}
               {postedBy?._id === user.sub && (
